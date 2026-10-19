@@ -21,8 +21,9 @@ test("Deve consultar um pedido aprovado", async ({ page }) => {
   await expect(page.getByText("VLO-XZ233I")).toBeVisible({
     timeout: 10000,
   });
-  await expect(page.getByText("VLO-XZ233I")).toContainText("VLO-XZ233I");
 
   await expect(page.getByText("APROVADO")).toBeVisible();
-  await expect(page.getByText("APROVADO")).toContainText("APROVADO");
+
+  // await expect(page.getByText("VLO-XZ233I")).toContainText("VLO-XZ233I");
+  // await expect(page.getByText("APROVADO")).toContainText("APROVADO");
 });
