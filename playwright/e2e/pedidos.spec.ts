@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 // AAA - Arrange, Act, Assert
 test("Deve consultar um pedido aprovado", async ({ page }) => {
-  await page.goto("http://localhost:5174/");
+  await page.goto("http://localhost:5173/");
 
   // ARRANGE
   await expect(
@@ -18,12 +18,21 @@ test("Deve consultar um pedido aprovado", async ({ page }) => {
 
   // ASSERT
 
-  await expect(page.getByText("VLO-XZ233I")).toBeVisible({
-    timeout: 10000,
-  });
+  //XPath
+  // const orderCode = page.locator(
+  //   '//p[text()="Pedido"]/..//p[text()="VLO-XZ233I"]',
+  // );
+
+  // await expect(orderCode).toBeVisible({
+  //   timeout: 10000,
+  // });
+
+  const containerPedido = page
+    .getByRole("paragraph")
+    .filter({ hasText: /^Pedido$/ })
+    .locator("..");
+
+  await expect(containerPedido).toContainText("VLO-XZ233I", { timeout: 10000 });
 
   await expect(page.getByText("APROVADO")).toBeVisible();
-
-  // await expect(page.getByText("VLO-XZ233I")).toContainText("VLO-XZ233I");
-  // await expect(page.getByText("APROVADO")).toContainText("APROVADO");
 });
